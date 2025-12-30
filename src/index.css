@@ -3,19 +3,32 @@
 @tailwind utilities;
 
 /* =========================================
-   Global Base Styles
+   1. GLOBAL & TYPOGRAPHY
    ========================================= */
 html, body {
   overflow-x: hidden;
   width: 100vw;
-  scroll-behavior: smooth; /* Enables smooth scrolling for anchors */
-  -webkit-font-smoothing: antialiased; /* Makes text look sharper/thinner */
+  /* Darker, richer background (Deep Carbon) */
+  background-color: #050505; 
+  color: #ededed;
+  
+  /* Modern Rendering Settings */
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0a0a0a; /* Prevents white flash on load in dark mode */
+  text-rendering: optimizeLegibility;
+  
+  /* Global spacing tweak for Space Grotesk to look professional */
+  letter-spacing: -0.02em; 
+}
+
+/* Bold High-Contrast Text Selection */
+::selection {
+  background-color: #facc15; /* Vibrant Yellow */
+  color: #000000;
 }
 
 /* =========================================
-   Utilities
+   2. UTILITIES
    ========================================= */
 @layer utilities {
   .line-clamp-2 {
@@ -36,29 +49,31 @@ html, body {
 }
 
 /* =========================================
-   Custom Scrollbar (Modern & Minimal)
+   3. CUSTOM SCROLLBAR (Floating Style)
    ========================================= */
 .scroll::-webkit-scrollbar {
-  width: 6px;   /* Thinner for a cleaner look */
-  height: 6px;  /* For horizontal scrollbars */
+  width: 10px; /* Wider for better usability */
+  height: 10px;
 }
 
 .scroll::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0a0a0a;
+  border-left: 1px solid #1a1a1a;
 }
 
 .scroll::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.15); /* Subtle transparent white */
+  background-color: #333; /* Dark Grey */
+  border: 2px solid #0a0a0a; /* Creates the "floating" effect */
   border-radius: 99px;
-  transition: background-color 0.2s ease;
+  min-height: 50px;
 }
 
-.scroll:hover::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.4); /* Lights up when user hovers */
+.scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Lighter on hover */
 }
 
 /* =========================================
-   Fonts
+   4. FONTS
    ========================================= */
 @font-face {
   font-family: "Space Grotesk Bold";
@@ -91,7 +106,7 @@ html, body {
 }
 
 /* =========================================
-   Infinite Scroll Animations
+   5. INFINITE SCROLL
    ========================================= */
 @keyframes scroll {
   0% { transform: translateX(0); }
@@ -104,11 +119,13 @@ html, body {
 }
 
 .animate-scroll {
-  animation: scroll 40s linear infinite; /* Slower for better readability */
+  animation: scroll 30s linear infinite;
+  will-change: transform; /* Performance optimization */
 }
 
 .animate-scroll-reverse {
-  animation: scroll-reverse 35s linear infinite;
+  animation: scroll-reverse 25s linear infinite;
+  will-change: transform;
 }
 
 .animate-scroll:hover,
@@ -117,37 +134,44 @@ html, body {
 }
 
 /* =========================================
-   UI Animations (Refined Physics)
+   6. CINEMATIC UI ANIMATIONS (With Blur)
    ========================================= */
 
-/* Fade In */
+/* Fade In with slight blur scaling */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.4s ease-out forwards;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
-/* Modal Slide Up - snappy "pop" effect */
+/* Slide Up - "Focus In" Effect */
 @keyframes slideUp {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.96);
+    transform: translateY(40px) scale(0.98);
+    filter: blur(8px); /* Starts blurry */
   }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
+    filter: blur(0); /* Ends sharp */
   }
 }
 
 .animate-slideUp {
-  /* cubic-bezier(0.16, 1, 0.3, 1) creates an "Ease Out Expo" feel */
-  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Bottom Sheet - Smooth spring effect */
+/* Bottom Sheet */
 @keyframes sheetUp {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
@@ -159,14 +183,14 @@ html, body {
 }
 
 .animate-sheet-up {
-  animation: sheetUp 0.4s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  animation: sheetUp 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .animate-sheet-down {
   animation: sheetDown 0.3s ease-in forwards;
 }
 
-/* Drawer / Sidebar - Smooth slide */
+/* Drawer / Sidebar */
 @keyframes drawerIn {
   from { transform: translateX(-100%); }
   to { transform: translateX(0); }
@@ -178,7 +202,7 @@ html, body {
 }
 
 .animate-drawer-in {
-  animation: drawerIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: drawerIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .animate-drawer-out {
