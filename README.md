@@ -1,4 +1,4 @@
-# 🌿 **AyurGuru**
+# 🌿 **AyurGurubykandb**
 
 **AyurGuru** is an innovative platform integrating ancient Ayurvedic knowledge with modern AI to provide holistic health solutions. It features AI-driven tools for personalized insights and seamless user interaction.  
 
